@@ -1,26 +1,32 @@
 const redis = require('redis');
-const { promisify } = require('util');
 
-const client = redis.createClient()
+const client = redis.createClient();
 
-const getAsync = promisify(client.get).bind(client);
-const setAsync = promisify(client.set).bind(client);
-
-client.on('connect', function () {
+client.on('connect', () => {
     console.log('Connected to Redis');
 });
 
-client.on('error', function (err) {
-    console.log('Redis error: ' + err);
+client.on('error', (err) => {
+    console.error('Redis error:', err);
 });
 
+// Important: Connect before using client
+(async () => {
+    await client.connect();
+})();
+
+// Save URL as a string
 const saveUrl = async (code, url) => {
-    await setAsync(code, url);
+    // No need to check typeof here; just always store as JSON string
+    await client.set(code, JSON.stringify({ originalUrl: url }));
 };
 
+// Get URL
 const getUrlByCode = async (code) => {
-    const url = await getAsync(code);
-    return url;
-}
+    const data = await client.get(code);
+    if (!data) return null;
+    const parsed = JSON.parse(data);
+    return parsed.originalUrl;
+};
 
 module.exports = { saveUrl, getUrlByCode };
