@@ -18,7 +18,7 @@ client.on('error', (err) => {
 // Save URL as a string
 const saveUrl = async (code, url) => {
     // No need to check typeof here; just always store as JSON string
-    await client.set(code, JSON.stringify({ originalUrl: url }));
+    await client.set(code, JSON.stringify({ originalUrl: url }),{ EX: 3600 });
 };
 
 // Get URL

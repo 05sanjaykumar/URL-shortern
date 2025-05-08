@@ -1,5 +1,16 @@
 const { generateShortCode, saveUrl, getUrlByCode } = require('../services/urlServices');
 
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+
+
 const shortenUrl = async (req, res) => {
     try {
       console.log('Received request:', req.body);
@@ -7,6 +18,10 @@ const shortenUrl = async (req, res) => {
   
       if (typeof originalUrl !== 'string') {
         return res.status(400).json({ error: 'Invalid input: originalUrl must be a string' });
+      }
+
+      if (!isValidUrl(originalUrl)) {
+        return res.status(400).json({ error: 'Invalid URL' });
       }
   
       const code = await generateShortCode(); // make sure generateShortCode is async
