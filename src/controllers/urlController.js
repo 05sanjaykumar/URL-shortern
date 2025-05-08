@@ -20,15 +20,21 @@ const shortenUrl = async (req, res) => {
     }
 };
 
-const redirectToUrl = async (req,res)=>{
-    const code = req.params.code;
-    const originalUrl = await getUrlByCode(code); // Use the Redis get function
+const redirectUrl = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const originalUrl = await getUrlByCode(code);
 
     if (originalUrl) {
-        res.redirect(originalUrl);
-      } else {
-        res.status(404).json({ error: 'URL not found' });
+      console.log(`Redirecting to: ${originalUrl}`);
+      res.redirect(originalUrl);
+    } else {
+      res.status(404).json({ error: 'Short URL not found' });
     }
+  } catch (err) {
+    console.error('Error in redirectUrl:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
-module.exports = { shortenUrl, redirectToUrl };
+module.exports = { shortenUrl, redirectUrl };
