@@ -1,11 +1,17 @@
-const {generateShortCode} = require('../src/services/urlServices')
+import { generateShortCode } from '../src/services/urlServices.js';
+import { client } from '../src/services/redisService.js';
 
-jest.mock('../src/services/redisService', () => ({
-  saveUrl: jest.fn().mockResolvedValue(),
-  getUrlByCode: jest.fn().mockResolvedValue('https://example.com'),
-}));
 
-test('short code should be 6 chars', async () => {
+
+describe('generateShortCode', () => {
+  it('should return a 6-character string', async () => {
     const code = await generateShortCode();
+    expect(typeof code).toBe('string');
     expect(code).toHaveLength(6);
   });
+});
+
+
+afterAll(async () => {
+  await client.quit(); // or disconnect(), depending on the client
+});

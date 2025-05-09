@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
+  "description": "",
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "jest": {
+    "transform": {},
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -17,7 +22,6 @@
     "url": "https://github.com/05sanjaykumar/URL-shortern/issues"
   },
   "homepage": "https://github.com/05sanjaykumar/URL-shortern#readme",
-  "description": "",
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
