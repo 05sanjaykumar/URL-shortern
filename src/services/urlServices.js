@@ -2,8 +2,7 @@ import { saveUrl as redisSaveUrl, getUrlByCode as redisGetUrlByCode } from './re
 import { nanoid } from 'nanoid';
   
 export const generateShortCode = async () => {
-    const nano = await nanoid();
-    return nano(6);  // nanoid(6) generates a 6-character short code
+    return nanoid(6);
 };
 
 export const saveUrl = async (code, url) => {

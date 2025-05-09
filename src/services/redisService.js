@@ -1,4 +1,3 @@
-// src/services/redisService.js
 import { createClient } from 'redis';
 
 const client = createClient();
