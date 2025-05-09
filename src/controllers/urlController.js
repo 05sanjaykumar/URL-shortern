@@ -1,4 +1,6 @@
-const { generateShortCode, saveUrl, getUrlByCode } = require('../services/urlServices');
+import { generateShortCode, saveUrl, getUrlByCode } from '../services/urlServices.js';
+// const { generateShortCode, saveUrl, getUrlByCode } = require('../services/urlServices');
+
 
 const isValidUrl = (url) => {
   try {
@@ -11,7 +13,7 @@ const isValidUrl = (url) => {
 
 
 
-const shortenUrl = async (req, res) => {
+export const shortenUrl = async (req, res) => {
     try {
       console.log('Received request:', req.body);
       const { originalUrl } = req.body;
@@ -35,7 +37,7 @@ const shortenUrl = async (req, res) => {
     }
 };
 
-const redirectUrl = async (req, res) => {
+export const redirectUrl = async (req, res) => {
   try {
     const { code } = req.params;
     const originalUrl = await getUrlByCode(code);
@@ -52,4 +54,4 @@ const redirectUrl = async (req, res) => {
   }
 };
 
-module.exports = { shortenUrl, redirectUrl };
+
