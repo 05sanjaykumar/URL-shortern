@@ -144,6 +144,5 @@ Redirects to the original long URL.
 
 This project is licensed under the MIT License.
 
-`
 
 
