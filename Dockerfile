@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
 
+# Install all dependencies, including devDependencies (needed for nodemon)
+RUN npm install --include=dev
+
 # Install dependencies
 RUN npm install
 

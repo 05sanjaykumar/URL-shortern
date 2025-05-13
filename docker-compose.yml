@@ -11,6 +11,8 @@ services:
       - REDIS_PORT=6379
     depends_on:
       - redis  # Wait for Redis to be ready before starting the app
+    volumes:
+      - .:/app
 
   # Redis container
   redis:
@@ -20,5 +22,3 @@ services:
     environment:
     - REDIS_HOST=redis
     - REDIS_PORT=6379
-    volumes:
-      -.:/app
