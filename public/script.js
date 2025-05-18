@@ -2,7 +2,7 @@ document.getElementById('shorten-form').addEventListener('submit', async(e)=>{
     e.preventDefault()
 
     const longUrl = document.getElementById('long-url').value;
-    const response = await fetch('http://localhost:3000/shorten', {
+    const response = await fetch('/api/shorten', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ originalUrl: longUrl })
