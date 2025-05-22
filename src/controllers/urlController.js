@@ -1,5 +1,5 @@
 import { generateShortCode, saveUrl, getUrlByCode } from '../services/urlServices.js';
-// const { generateShortCode, saveUrl, getUrlByCode } = require('../services/urlServices');
+import 'dotenv/config';
 
 
 const isValidUrl = (url) => {
