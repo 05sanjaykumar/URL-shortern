@@ -29,8 +29,12 @@ export const shortenUrl = async (req, res) => {
       const code = await generateShortCode(); // make sure generateShortCode is async
       await saveUrl(code, originalUrl);
   
+      // 🔥 Use BASE_URL from env or fallback to localhost
+      const baseUrl = process.env.BASE_URL || `http://localhost:3000`;
+      const shortUrl = `${baseUrl}/${code}`;
+
       console.log('Short URL saved');
-      res.json({ shortUrl: `http://localhost:3000/${code}` });
+      res.json({ shortUrl });
     } catch (err) {
       console.error('Error in shortenUrl:', err);
       res.status(500).json({ error: 'Internal Server Error' });
