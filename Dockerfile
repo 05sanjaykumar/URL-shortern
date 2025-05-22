@@ -8,10 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install all dependencies, including devDependencies (needed for nodemon)
-RUN npm install --include=dev
-
-# Install dependencies
-RUN npm install
+RUN npm install --production
 
 # Copy the rest of the application code
 COPY . .
