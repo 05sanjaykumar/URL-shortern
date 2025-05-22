@@ -1,6 +1,10 @@
 import { createClient } from 'redis';
 
-const redisUrl = process.env.REDIS_URL || `redis://${process.env.REDIS_HOST || 'localhost'}:${process.env.REDIS_PORT || 6379}`;
+const redisUrl =
+  process.env.REDIS_URL?.startsWith('redis://') && process.env.REDIS_URL.length > 0
+    ? process.env.REDIS_URL
+    : `redis://${process.env.REDIS_HOST || 'localhost'}:${process.env.REDIS_PORT || 6379}`;
+
 
 export const client = createClient({ url: redisUrl });
 

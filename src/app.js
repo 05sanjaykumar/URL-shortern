@@ -1,14 +1,22 @@
-
-import express from 'express'
-import urlRoutes from './routes/urlRoutes.js'
-import { limiter } from './middleware/rateLimiter.js';
-import path from 'path'
-
-
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
+
+// Needed because you're using ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Middleware
 app.use(express.json());
-// app.use(express.static(path.resolve('public')));
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files (important!)
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Routes
+import urlRoutes from './routes/urlRoutes.js';
 app.use('/api', urlRoutes);
 
-export default app
+export default app;
