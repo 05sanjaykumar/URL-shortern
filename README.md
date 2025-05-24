@@ -110,16 +110,6 @@ The backend and frontend are deployed using **Render.com**:
 
 ---
 
-## 📉 What's Next? (Optional ideas)
-
-* Add analytics (click count per URL)
-* Add user accounts + dashboards
-* Add expiry time to shortened links
-* Integrate a frontend framework (React, Vue)
-* Use a database like MongoDB or PostgreSQL
-
----
-
 ## 🙌 Author
 
-**Sanjay Kumar** — *Lifelong learner, web dev, and builder of things.*
+**Sanjay Kumar** — *Lifelong learner, Polyglot dev, and builder of things.*
