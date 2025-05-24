@@ -1,148 +1,125 @@
+# 🔗 URL Shortener
 
-# 🔗 Scalable URL Shortener
-
-A high-performance, scalable URL Shortener (like Bit.ly), designed not just to work — but to **teach** modern backend engineering concepts.
-
----
-
-## 🚀 Project Goal
-
-This isn't just about shortening URLs — it's about mastering:
-
-- **System Design** (scalability, caching, reliability)
-- **Cloud Architecture** (Docker, Redis, NGINX, AWS/GCP)
-- **Backend Engineering** (testing, modularity, rate limiting)
-- **DevOps** (CI/CD, containerization, deployment)
-- **Performance Optimization** (concurrency, fault tolerance)
+A full-stack, production-grade URL shortening service built with **Node.js**, **Express**, **Redis**, and **Docker** — complete with rate limiting, RESTful API, unit tests, and deployment on Render.
 
 ---
 
-## 📁 Directory Structure
+## 🌍 Live Demo
+
+> 🟢 Deployed on [Render](https://url-shortern-9qxj.onrender.com/)  
+> Frontend: Static `HTML + JS`  
+> Backend: Node.js + Redis  
+> Dockerized with `Dockerfile` and `nginx` (for local use)
+
+---
+
+## 🧰 Tech Stack
+
+- **Frontend**: HTML, JavaScript (Vanilla)
+- **Backend**: Node.js + Express
+- **Database**: Redis (for storing shortened URLs)
+- **Testing**: Jest
+- **Rate Limiting**: Custom Express middleware
+- **DevOps**:
+  - Docker & docker-compose (for local setup)
+  - Render (for cloud deployment)
+  - NGINX (proxy for containerized routing)
+
+---
+
+## 📁 Project Structure
 
 ```
 
-.
-├── docker-compose.yml         # Multi-container setup (Redis + Node.js)
-├── Dockerfile                 # Docker image for Node.js backend
-├── server.js                  # Entry point
-├── package.json               # Dependencies
+├── public/             # Static frontend
 ├── src/
-│   ├── app.js                 # Express app setup
-│   ├── controllers/           # Route controllers
-│   ├── routes/                # Express routes
-│   ├── services/              # Redis + core logic
-│   ├── middleware/            # Rate limiting etc.
-│   └── utils/                 # Helper modules (e.g. ID generation)
-└── test/
-├── **mock**/              # Redis mock
-└── url.test.js            # Jest test suite
+│   ├── controllers/    # Shorten & redirect logic
+│   ├── routes/         # API endpoints
+│   ├── services/       # Redis + URL generation
+│   └── middleware/     # Rate limiter
+├── test/               # Unit tests (with mocks)
+├── Dockerfile          # Container setup
+├── docker-compose.yml  # Dev orchestration
+├── server.js           # Entry point
+├── README.md           # Project info
 
 ````
 
 ---
 
-## ✅ Completed Features
+## ✅ Features
 
-| Feature                         | Status       | Description |
-| ------------------------------ | ------------ | ----------- |
-| URL Shortening (POST)          | ✅ Done       | Generates a short code for long URL |
-| URL Redirect (GET)             | ✅ Done       | Redirects user using short code |
-| Redis Integration              | ✅ Done       | Used for caching and short-term storage |
-| Docker Support                 | ✅ Done       | Fully containerized with Docker |
-| Unit & API Testing (Jest)      | ✅ Done       | Tests added for core functionality |
-| Input Validation               | ✅ Done       | Ensures valid URLs are submitted |
-
----
-
-## 🔧 Upcoming Features
-
-| Feature                        | Description |
-| ----------------------------- | ----------- |
-| 🔐 HTTPS + NGINX              | Use NGINX as a reverse proxy, enable SSL for production-ready server |
-| ☁️ Cloud Deployment           | Deploy to platforms like EC2, Railway, or Render |
-| 📈 Analytics (Optional)       | Track clicks, referrer, geolocation using Redis Streams or Kafka |
-| 📎 Custom Aliases             | Allow users to specify `/custom-alias` instead of random codes |
-| 📆 URL Expiration             | Auto-expire old URLs via Redis TTL |
-| 📸 QR Code Generator          | Generate a QR code for each shortened URL |
-| ⚙️ CI/CD + GitHub Actions     | Set up auto-deploy pipeline for production environments |
-| 🧠 System Design Deep Dive     | Break into microservices, sharding, Kafka, etc. for scale-out scenarios |
+- 🔗 Shortens long URLs to 6-character codes
+- 🚀 Redirects to original URL from code
+- 🧠 Stores data in **Redis**
+- 🛡️ Built-in **rate limiter** middleware (basic DDoS protection)
+- 🧪 Unit tested with mocks for Redis
+- 🐳 Local Docker support
+- 🌐 Deployed on **Render**
 
 ---
 
-## 🧪 Tech Stack
+## 🚀 Running Locally
 
-- **Node.js / Express** – Core backend
-- **Redis** – Fast in-memory store and cache
-- **Docker** – Containerized backend and Redis
-- **Jest + Supertest** – Unit & integration testing
-- **NGINX (upcoming)** – Reverse proxy + HTTPS
-- **AWS/GCP/Render (upcoming)** – Deployment & scaling
-
----
-
-## 🐳 Docker Quick Start
+### Option 1: Docker (Recommended for full stack)
 
 ```bash
-# Start server and Redis together
-docker-compose up --build
+docker-compose up
 ````
 
-Server runs on: `http://localhost:3000`
-Redis on: `localhost:6379`
+### Option 2: Manual
 
----
-
-## 🧠 Learning Milestones
-
-This project is a learning playground for:
-
-* ✅ Redis caching, TTL, and data modeling
-* ✅ Docker + docker-compose orchestration
-* 🔜 NGINX and SSL termination
-* 🔜 Rate limiting with Redis
-* 🔜 Cloud deployment strategy
-* 🔜 Building analytics using Redis Streams/Kafka
-* 🔜 Event-driven architecture & microservices (advanced)
-
----
-
-## 💡 Endpoints
-
-### `POST /shorten`
-
-Shorten a long URL.
-
-```json
-{
-  "url": "https://example.com"
-}
+```bash
+npm install
+redis-server
+npm start
 ```
 
-Returns:
+Then visit: [http://localhost:3000](http://localhost:3000)
 
-```json
-{
-  "shortCode": "abc123"
-}
+---
+
+## 🧪 Run Tests
+
+```bash
+npm test
 ```
 
----
-
-### `GET /:code`
-
-Redirects to the original long URL.
+Includes mocks for Redis to ensure unit isolation.
 
 ---
 
-## 👨‍💻 Author
+## 🌐 Deployment (Render)
 
-**Sanjay** — A curious self-learner and explorer.
+The backend and frontend are deployed using **Render.com**:
+
+* **Backend**: Connected to Redis instance
+* **Frontend**: Served via static files or nginx
+* **Base URL** is set dynamically in production
 
 ---
 
-## 📌 License
+## 📌 Learnings
 
-This project is licensed under the MIT License.
+* 📦 **Modular Express structure** with `controllers`, `routes`, and `services`
+* 🧪 Wrote **unit tests** with Redis mocks
+* 🐳 Learned how to containerize full-stack apps with Docker
+* 🚀 Deployed using **Render** and explored cloud hosting
+* 🛡️ Implemented basic **rate limiting**
+* 🌱 Explored logging, monitoring, and optional CI/CD pipelines
 
+---
 
+## 📉 What's Next? (Optional ideas)
 
+* Add analytics (click count per URL)
+* Add user accounts + dashboards
+* Add expiry time to shortened links
+* Integrate a frontend framework (React, Vue)
+* Use a database like MongoDB or PostgreSQL
+
+---
+
+## 🙌 Author
+
+**Sanjay Kumar** — *Lifelong learner, web dev, and builder of things.*
